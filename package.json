@@ -1,0 +1,55 @@
+{
+  "name": "gulp-checktextdomain",
+  "version": "0.0.1",
+  "description": "A Gulp plugin to checks gettext function calls for missing or incorrect text domain.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/felixzapata/gulp-checktextdomain"
+  },
+  "keywords": [
+    "gulp",
+    "checktextdomain",
+    "images",
+    "css",
+    "js",
+    "png",
+    "gulpplugin"
+  ],
+  "scripts": {
+    "test": "gulp test"
+  },
+  "author": "Felix Zapata",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/felixzapata/gulp-checktextdomain/issues"
+  },
+  "homepage": "https://github.com/felixzapata/gulp-checktextdomain#readme",
+  "dependencies": {
+    "glob-all": "^3.0.1",
+    "gulp-util": "^3.0.7",
+    "moment": "^2.12.0",
+    "ramda": "^0.20.0",
+    "through2": "^2.0.1"
+  },
+  "devDependencies": {
+    "conventional-changelog": "^1.1.0",
+    "fs-extra": "^0.26.7",
+    "gulp": "^3.9.1",
+    "gulp-bump": "^2.1.0",
+    "gulp-git": "^1.7.0",
+    "gulp-jshint": "^2.0.0",
+    "gulp-load-plugins": "^1.2.0",
+    "gulp-mocha": "^2.2.0",
+    "istanbul": "^0.4.2",
+    "jshint": "^2.9.1",
+    "jshint-stylish": "^2.1.0",
+    "mocha": "^2.4.5",
+    "mocha-lcov-reporter": "^1.2.0",
+    "require-dir": "^0.3.0",
+    "run-sequence": "^1.1.5",
+    "should": "^8.3.0",
+    "stream-array": "^1.1.1",
+    "stream-assert": "^2.0.3"
+  }
+}
