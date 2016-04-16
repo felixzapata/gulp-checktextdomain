@@ -26,10 +26,10 @@
   },
   "homepage": "https://github.com/felixzapata/gulp-checktextdomain#readme",
   "dependencies": {
-    "glob-all": "^3.0.1",
+    "chalk": "^1.1.3",
     "gulp-util": "^3.0.7",
-    "moment": "^2.12.0",
     "ramda": "^0.20.0",
+    "text-table": "^0.2.0",
     "through2": "^2.0.1"
   },
   "devDependencies": {
