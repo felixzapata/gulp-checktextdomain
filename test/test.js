@@ -11,7 +11,7 @@ var assert = require('assert');
 var sassert = require('stream-assert');
 require('mocha');
 
-var fixtures = function(glob) { return path.join(__dirname, './.tmp', glob); }
+var fixtures = function(glob) { return path.join(__dirname, './temp', glob); }
 
 var keywords = [
 	'__:1,2d',
