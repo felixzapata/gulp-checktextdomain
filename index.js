@@ -123,14 +123,15 @@ function gulpCheckTextDomain(customOptions, cb) {
     
     var filepath = path.dirname(file.path);
     
-    if (!fileExists(filepath)) {
-      gutil.log('Source file "' + filepath + '" not found.');
+    if (!fileExists(file.history)) {
+      gutil.log('Source file "' + file.history + '" not found.');
       cb();
       return;
     }
 
     //Get tokens
-    var tokens = checktextdomain.token_get_all(fs.readFileSync(filepath));
+    
+    var tokens = checktextdomain.token_get_all(file.contents.toString());
 
     //Init gettext_func - the current gettext function being inspected
     var gettext_func = {
