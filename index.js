@@ -16,7 +16,7 @@ var R = require('ramda');
 var through = require('through2');
 var gutil = require('gulp-util');
 var table = require('text-table');
-var checktextdomain = require('./checktextdomain.js');
+var checktextdomain = require('./lib/checktextdomain.js');
 var PLUGIN_NAME = 'gulp-checktextdomain';
 
 
