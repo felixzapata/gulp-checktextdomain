@@ -77,7 +77,7 @@ function gulpCheckTextDomain(customOptions, cb) {
       return;
     }
 
-    options.keywords.forEach(function (keyword) {
+    options.keywords.forEach(function(keyword) {
 
       //parts[0] is keyword name, e.g. __ or _x
       var parts = keyword.split(':');
@@ -114,15 +114,15 @@ function gulpCheckTextDomain(customOptions, cb) {
     var all_errors = {};
     var error_num = 0;
 
-    
-    
+
+
 
     var modified_content = '';
 
     //Read file, if it exists
-    
+
     var fileName = path.basename(file.path);
-    
+
     if (!fileExists(file.path)) {
       gutil.log('Source file "' + file.path + '" not found.');
       cb();
@@ -130,7 +130,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     }
 
     //Get tokens
-    
+
     var tokens = checktextdomain.token_get_all(file.contents.toString());
 
     //Init gettext_func - the current gettext function being inspected
@@ -256,7 +256,7 @@ function gulpCheckTextDomain(customOptions, cb) {
           message = chalk.red('Variable used in domain argument');
 
         } else {
-          message = chalk.red('Incorrect text domain used ("' + errors[i].domain  + '")');
+          message = chalk.red('Incorrect text domain used ("' + errors[i].domain + '")');
         }
 
         rows.push([error_line, func, message]);
@@ -275,7 +275,7 @@ function gulpCheckTextDomain(customOptions, cb) {
 
     //Reset errors
     errors = [];
-    
+
 
     if (options.create_report_file) {
       fs.writeFileSync('.' + path.basename(file.path, path.extname(file.path)) + '.json', JSON.stringify(all_errors));
