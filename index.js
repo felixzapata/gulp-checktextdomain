@@ -121,10 +121,10 @@ function gulpCheckTextDomain(customOptions, cb) {
 
     //Read file, if it exists
     
-    var filepath = path.dirname(file.path);
+    var fileName = path.basename(file.path);
     
-    if (!fileExists(file.history)) {
-      gutil.log('Source file "' + file.history + '" not found.');
+    if (!fileExists(file.path)) {
+      gutil.log('Source file "' + file.path + '" not found.');
       cb();
       return;
     }
@@ -266,20 +266,19 @@ function gulpCheckTextDomain(customOptions, cb) {
       console.log(table(rows));
 
       if (options.correct_domain) {
-        fs.writeFileSync(filepath, modified_content);
-        console.log(chalk.bold(filepath + ' corrected.'));
+        fs.writeFileSync(file.path, modified_content);
+        console.log(chalk.bold(fileName + ' corrected.'));
       }
     }
 
-    all_errors[filepath] = errors;
+    all_errors[file.path] = errors;
 
     //Reset errors
     errors = [];
     
 
-
     if (options.create_report_file) {
-      fs.writeFileSync('.' + this.target + '.json', JSON.stringify(all_errors));
+      fs.writeFileSync('.' + path.basename(file.path, path.extname(file.path)) + '.json', JSON.stringify(all_errors));
     }
 
     if (error_num > 0 && !options.force) {
