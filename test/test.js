@@ -91,8 +91,34 @@ describe('gulp-checktextdomain', function() {
 
   });
 
-  xit('2) variable_domain_autocomplete', function(done) {
-    
+  it('2) Domain should have been corrected', function(done) {
+      var actual;
+      var corrected;
+      var expected;
+      var options = {
+        force: true,
+        text_domain: 'my-domain',
+        correct_domain: true,
+        create_report_file: true,
+        keywords: keywords
+      };
+
+      gulp.src(fixtures('variable-domain-autocorrect.php'))
+      .pipe(checktextdomain(options))
+      .pipe(sassert.first(function(d) {
+        //There are 14 missing domains
+        actual = JSON.parse(fs.readFileSync( '.variable-domain-autocorrect.json' ) );
+        actual[path.join(__dirname, 'temp/variable-domain-autocorrect.php')].length.should.equal(14);
+        
+        //Test corrected file
+        corrected = fs.readFileSync( 'test/temp/variable-domain-autocorrect.php' ).toString();
+        expected = fs.readFileSync( 'test/expected/variable-domain-autocorrect.php' ).toString();
+        corrected.should.equal(expected);
+        
+        //Clean up: Delete report file
+        fs.remove( '.variable-domain-autocorrect.json' );
+      }))
+      .pipe(sassert.end(done));
   });
 
   xit('3) missing_domain', function(done) {
