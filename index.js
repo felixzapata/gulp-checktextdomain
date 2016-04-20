@@ -241,12 +241,12 @@ function gulpCheckTextDomain(customOptions, cb) {
     //Output errors
     if (errors.length > 0) {
 
-      gutil.log('\n' + chalk.bold.underline(file.src));
+      gutil.log('\n' + chalk.bold.underline(fileName));
 
       var rows = [], error_line, func, message;
       for (i = 0, len = errors.length; i < len; i++) {
 
-        error_line = chalk.yellow('[L<%= line %>]', { data: errors[i] });
+        error_line = chalk.yellow('[L' + errors[i].line + ']');
         func = chalk.cyan(errors[i].name);
 
         if (!errors[i].domain) {
@@ -256,7 +256,7 @@ function gulpCheckTextDomain(customOptions, cb) {
           message = chalk.red('Variable used in domain argument');
 
         } else {
-          message = chalk.red('Incorrect text domain used ("<%= domain %>")', { data: errors[i] });
+          message = chalk.red('Incorrect text domain used ("' + errors[i].domain  + '")');
         }
 
         rows.push([error_line, func, message]);
