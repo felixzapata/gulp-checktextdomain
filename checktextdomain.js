@@ -2,7 +2,7 @@
 
 var checktextdomain = module.exports = {};
 
-checktextdomain.token_get_all = function (source) {
+checktextdomain.token_get_all = function(source) {
   // Split given source into PHP tokens
   // + original by: Marco Marchiò
   // + improved by: Brett Zamir (http://brett-zamir.me)
@@ -313,7 +313,7 @@ checktextdomain.token_get_all = function (source) {
     //Number of open brackets inside a complex variable syntax
     openBrackets,
     //Function to emit tokens
-    emitToken = function (token, code, preventBuffer, l) {
+    emitToken = function(token, code, preventBuffer, l) {
       if (!preventBuffer && bufferType) {
         buffer += token;
         lastToken = null;
@@ -323,13 +323,13 @@ checktextdomain.token_get_all = function (source) {
       }
     },
     //Function to emit and close the current buffer
-    emitBuffer = function () {
+    emitBuffer = function() {
       buffer && emitToken(buffer, bufferTokens[bufferType], true, lineBuffer);
       buffer = "";
       bufferType = null;
     },
     //Function to check if the token at the current index is escaped
-    isEscaped = function (s) {
+    isEscaped = function(s) {
       var escaped = false,
         c = (s || i) - 1;
       for (; c >= 0; c--) {
@@ -341,15 +341,15 @@ checktextdomain.token_get_all = function (source) {
       return escaped;
     },
     //Returns the number of line feed characters in the given string
-    countNewLines = function (str) {
+    countNewLines = function(str) {
       var i = 0;
-      str.replace(/\n/g, function () {
+      str.replace(/\n/g, function() {
         i++;
       });
       return i;
     },
     //Get the part of source that is between the current index and the index of the limit character
-    getBufferAndEmit = function (start, type, limit, canBeEscaped) {
+    getBufferAndEmit = function(start, type, limit, canBeEscaped) {
       /*23456*/
       var startL = start.length,
         startPos = i + startL,
@@ -378,7 +378,7 @@ checktextdomain.token_get_all = function (source) {
     },
     //This function is used to split a double quoted string or a heredoc buffer after a variable
     //has been found inside it
-    splitString = function () {
+    splitString = function() {
       //Don't emit empty buffers
       if (!buffer) {
         return;
@@ -395,11 +395,11 @@ checktextdomain.token_get_all = function (source) {
       lineBuffer = line;
     },
     //Checks if the given ASCII identifies a whitespace
-    isWhitespace = function (ASCII) {
+    isWhitespace = function(ASCII) {
       return ASCII === 9 || ASCII === 10 || ASCII === 13 || ASCII === 32;
     },
     //Get next whitespaces
-    getWhitespaces = function () {
+    getWhitespaces = function() {
       var as,
         chr,
         ret = "";
@@ -416,25 +416,25 @@ checktextdomain.token_get_all = function (source) {
       return ret;
     },
     //Get next word
-    getWord = function (i) {
+    getWord = function(i) {
       var match = /^[a-zA-Z_]\w*/.exec(source.substr(i));
       return match ? match[0] : null;
     },
     //Get next heredoc declaration
-    getHeredocWord = function () {
+    getHeredocWord = function() {
       return (/^<<< *(['"]?[a-zA-Z]\w*)['"]?\r?\n/).exec(source.substr(i));
     },
     //Get next type casting declaration
-    getTypeCasting = function () {
+    getTypeCasting = function() {
       var match = (/^\( *([a-zA-Z]+) *\)/).exec(source.substr(i));
       return match && match[1] && (match[1].toLowerCase()) in typeCasting ? match : null;
     },
     //Get next php long open declaration
-    getLongOpenDeclaration = function (i) {
+    getLongOpenDeclaration = function(i) {
       return (/^php(?:\r?\s)?/i).exec(source.substr(i));
     },
     //Get next integer or float number
-    getNumber = function () {
+    getNumber = function() {
       var rnum = /^(?:((?:\d+(?:\.\d*)?|\d*\.\d+)[eE][\+\-]?\d+|\d*\.\d+|\d+\.\d*)|(\d+(?:x[0-9a-fA-F]+)?))/,
         match = rnum.exec(source.substr(i));
       if (!match) {
@@ -454,7 +454,7 @@ checktextdomain.token_get_all = function (source) {
   // Avoid running a conditional for each token by overwriting function
   if (this.php_js && this.php_js.phpParser) {
     var oldEmitToken = emitToken;
-    emitToken = function (token, code, preventBuffer, l) {
+    emitToken = function(token, code, preventBuffer, l) {
       var action = that.php_js.phpParser[typeof token === 'number' ? that.token_name(token) : token];
       // Allow execution of (optional) parsing callbacks during first run-through
       if (typeof action === 'function') {
