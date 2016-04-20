@@ -9,12 +9,10 @@
   },
   "keywords": [
     "gulp",
-    "checktextdomain",
-    "images",
-    "css",
-    "js",
-    "png",
-    "gulpplugin"
+    "gulpplugin",
+    "i18n",
+    "gettext",
+    "wordpress"
   ],
   "scripts": {
     "test": "gulp test"
