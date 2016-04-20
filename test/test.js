@@ -147,17 +147,58 @@ describe('gulp-checktextdomain', function() {
 
   });
 
-  xit('4) missing_domain_ignore_missing', function(done) {
-
+  it('4) Should ignore one missing domain', function(done) {
+      var actual;
+      var corrected;
+      var expected;
+      var options = {
+        force: true,
+        text_domain: 'my-domain',
+        report_missing: false,
+        create_report_file: true,
+        keywords: keywords
+      };
+      
+      gulp.src(fixtures('missing-domain.php'))
+      .pipe(checktextdomain(options))
+      .pipe(sassert.first(function(d) {
+        //File only has missing domain, which we are nor reporting. There should be no errors.
+        actual = JSON.parse(fs.readFileSync( '.missing-domain.json' ) );
+        actual[path.join(__dirname, 'temp/missing-domain.php')].length.should.equal(0);
+        
+        //Clean up: Delete report file
+        fs.remove( '.missing-domain.json' );
+      }))
+      .pipe(sassert.end(done));
    
   });
   
-  xit('5) correct_domain', function(done) {
-
+  it('5) Should review that the domain is ok', function(done) {
+      var actual;
+      var corrected;
+      var expected;
+      var options = {
+        force: true,
+        text_domain: 'my-domain',
+        create_report_file: true,
+        keywords: keywords
+      };
+      
+      gulp.src(fixtures('correct-domain.php'))
+      .pipe(checktextdomain(options))
+      .pipe(sassert.first(function(d) {
+        //There are 14 missing domains
+        actual = JSON.parse(fs.readFileSync( '.correct-domain.json' ) );
+        actual[path.join(__dirname, 'temp/correct-domain.php')].length.should.equal(0);
+        
+        //Clean up: Delete report file
+        fs.remove( '.correct-domain.json' );
+      }))
+      .pipe(sassert.end(done));
    
   });
   
-  it('6) should review plurals', function(done) {
+  it('6) Should review plurals', function(done) {
       var actual;
       var corrected;
       var expected;
