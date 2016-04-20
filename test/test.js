@@ -157,8 +157,28 @@ describe('gulp-checktextdomain', function() {
    
   });
   
-  xit('6) plurals', function(done) {
-
+  it('6) should review plurals', function(done) {
+      var actual;
+      var corrected;
+      var expected;
+      var options = {
+        force: true,
+        text_domain: 'my-domain',
+        create_report_file: true,
+        keywords: keywords
+      };
+      
+      gulp.src(fixtures('plurals.php'))
+      .pipe(checktextdomain(options))
+      .pipe(sassert.first(function(d) {
+        //There are 14 missing domains
+        actual = JSON.parse(fs.readFileSync( '.plurals.json' ) );
+        actual[path.join(__dirname, 'temp/plurals.php')].length.should.equal(0);
+        
+        //Clean up: Delete report file
+        fs.remove( '.plurals.json' );
+      }))
+      .pipe(sassert.end(done));
    
   });
 
