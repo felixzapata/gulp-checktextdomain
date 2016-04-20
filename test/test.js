@@ -75,8 +75,8 @@ describe('gulp-checktextdomain', function() {
       .pipe(checktextdomain(options))
       .pipe(sassert.first(function(d) {
         //There are 14 missing domains
-        actual = JSON.parse(fs.readFileSync( '.incorrect_domain_autocorrect.json' ) );
-        actual['test/temp/incorrect-domain-autocorrect.php'].length.should.equal(14);
+        actual = JSON.parse(fs.readFileSync( '.incorrect-domain-autocorrect.json' ) );
+        actual[path.join(__dirname, 'temp/incorrect-domain-autocorrect.php')].length.should.equal(14);
         
         //Test corrected file
         corrected = fs.readFileSync( 'test/temp/incorrect-domain-autocorrect.php' ).toString();
@@ -84,7 +84,7 @@ describe('gulp-checktextdomain', function() {
         corrected.should.equal(expected);
         
         //Clean up: Delete report file
-        fs.remove( '.incorrect_domain_autocorrect.json' );
+        fs.remove( '.incorrect-domain-autocorrect.json' );
       }))
       .pipe(sassert.end(done));
       
