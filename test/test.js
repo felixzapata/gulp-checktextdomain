@@ -187,7 +187,7 @@ describe('gulp-checktextdomain', function() {
       gulp.src(fixtures('correct-domain.php'))
       .pipe(checktextdomain(options))
       .pipe(sassert.first(function(d) {
-        //There are 14 missing domains
+        //File is correct, should report no errors
         actual = JSON.parse(fs.readFileSync( '.correct-domain.json' ) );
         actual[path.join(__dirname, 'temp/correct-domain.php')].length.should.equal(0);
         
@@ -212,7 +212,7 @@ describe('gulp-checktextdomain', function() {
       gulp.src(fixtures('plurals.php'))
       .pipe(checktextdomain(options))
       .pipe(sassert.first(function(d) {
-        //There are 14 missing domains
+        //File is correct, should report no errors
         actual = JSON.parse(fs.readFileSync( '.plurals.json' ) );
         actual[path.join(__dirname, 'temp/plurals.php')].length.should.equal(0);
         
