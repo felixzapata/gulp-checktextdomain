@@ -121,8 +121,28 @@ describe('gulp-checktextdomain', function() {
       .pipe(sassert.end(done));
   });
 
-  xit('3) missing_domain', function(done) {
-    
+  it('3) Should detect missing domain', function(done) {
+      var actual;
+      var corrected;
+      var expected;
+      var options = {
+        force: true,
+        text_domain: 'my-domain',
+        create_report_file: true,
+        keywords: keywords
+      };
+      
+      gulp.src(fixtures('missing-domain.php'))
+      .pipe(checktextdomain(options))
+      .pipe(sassert.first(function(d) {
+        //There are 14 missing domains
+        actual = JSON.parse(fs.readFileSync( '.missing-domain.json' ) );
+        actual[path.join(__dirname, 'temp/missing-domain.php')].length.should.equal(14);
+        
+        //Clean up: Delete report file
+        fs.remove( '.missing-domain.json' );
+      }))
+      .pipe(sassert.end(done));
 
 
   });
