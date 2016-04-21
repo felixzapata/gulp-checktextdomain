@@ -1,3 +1,14 @@
+<a name="1.0.1"></a>
+## [1.0.1](https://github.com/felixzapata/gulp-checktextdomain/compare/1.0.0...v1.0.1) (2016-04-21)
+
+
+### Bug Fixes
+
+* **gulp-util:** remove dependency with gulp-util ([77c5bc8](https://github.com/felixzapata/gulp-checktextdomain/commit/77c5bc8))
+* **index.js:** add rule to avoid possible strict violation message of jshint ([5ebac06](https://github.com/felixzapata/gulp-checktextdomain/commit/5ebac06))
+
+
+
 <a name="1.0.0"></a>
 # 1.0.0 (2016-04-20)
 
