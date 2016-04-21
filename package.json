@@ -1,6 +1,6 @@
 {
   "name": "gulp-checktextdomain",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A Gulp plugin to checks gettext function calls for missing or incorrect text domain.",
   "main": "index.js",
   "repository": {
