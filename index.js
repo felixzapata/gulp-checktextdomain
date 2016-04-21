@@ -6,7 +6,6 @@
  * Licensed under the ISC license.
  */
 
-
 'use strict';
 
 var fs = require('fs');
@@ -46,6 +45,8 @@ function gulpCheckTextDomain(customOptions, cb) {
   var patt = new RegExp('([0-9]+)d', 'i');	//Check for domain identifier in keyword specification
 
   function bufferContents(file, enc, cb) {
+    
+    /* jshint validthis: true */
 
     if (file.isNull()) {
       cb(null, file);
