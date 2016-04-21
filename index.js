@@ -14,7 +14,6 @@ var path = require('path');
 var chalk = require('chalk');
 var R = require('ramda');
 var through = require('through2');
-var gutil = require('gulp-util');
 var table = require('text-table');
 var checktextdomain = require('./lib/checktextdomain.js');
 var PLUGIN_NAME = 'gulp-checktextdomain';
@@ -124,7 +123,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     var fileName = path.basename(file.path);
 
     if (!fileExists(file.path)) {
-      gutil.log('Source file "' + file.path + '" not found.');
+      console.log('Source file "' + file.path + '" not found.');
       cb();
       return;
     }
@@ -241,7 +240,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     //Output errors
     if (errors.length > 0) {
 
-      gutil.log('\n' + chalk.bold.underline(fileName));
+      console.log('\n' + chalk.bold.underline(fileName));
 
       var rows = [], error_line, func, message;
       for (i = 0, len = errors.length; i < len; i++) {
