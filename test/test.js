@@ -3,7 +3,6 @@
 var pluginPath = '../index';
 var checktextdomain = require(pluginPath);
 var gulp = require('gulp');
-var gutil = require('gulp-util');
 var fs = require('fs-extra');
 var path = require('path');
 var should = require('should');
