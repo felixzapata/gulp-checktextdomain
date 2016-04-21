@@ -38,7 +38,7 @@ gulp.task('create-new-tag', function () {
 
 
 gulp.task('git', function (callback) {
-  runSequence('commit-changes', 'commit-changelog', 'create-new-tag', function (error) {
+  runSequence('commit-changelog', 'commit-changes', 'create-new-tag', function (error) {
     if (error) {
       $.util.log($.util.colors.red(error.message));
     } else {
