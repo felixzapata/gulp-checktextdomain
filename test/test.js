@@ -29,17 +29,6 @@ var keywords = [
   '_nx_noop:1,2,3c,4d'
 ];
 
-
-var fixtures = function(glob) { return path.join(__dirname, './temp', glob); }
-
-function fileExists(filePath) {
-  try {
-    return fs.statSync(filePath).isFile();
-  } catch (err) {
-    return false;
-  }
-}
-
 describe('gulp-checktextdomain', function() {
 
   var tmpFolder = path.join(__dirname, 'temp');
