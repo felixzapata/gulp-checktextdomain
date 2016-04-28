@@ -126,7 +126,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     var fileName = path.basename(file.path);
 
     if (!fileExists(file.path)) {
-      console.log('Source file "' + file.path + '" not found.');
+      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Source file "' + file.path + '" not found.'));
       cb();
       return;
     }
