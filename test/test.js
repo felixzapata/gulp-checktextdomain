@@ -210,5 +210,21 @@ describe('gulp-checktextdomain', function() {
       .pipe(sassert.end(done));
 
   });
+  
+  it('7) Should emit error on streamed file', function (done) {
+      var options = {
+        force: true,
+        text_domain: 'my-domain',
+        create_report_file: true,
+        keywords: keywords
+      };
+      gulp.src(fixtures('plurals.php'), { buffer: false })
+        .pipe(checktextdomain())
+        .on('error', function (err) {
+          err.message.should.eql('Streaming not supported');
+          done();
+       });
+   });
+   
 
 });
