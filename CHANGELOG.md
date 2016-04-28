@@ -1,3 +1,15 @@
+<a name="1.0.2"></a>
+## [1.0.2](https://github.com/felixzapata/gulp-checktextdomain/compare/1.0.1...v1.0.2) (2016-04-28)
+
+
+### Bug Fixes
+
+* **index.js:** add gulp-util to use PluginError ([47c899a](https://github.com/felixzapata/gulp-checktextdomain/commit/47c899a))
+* **index.js:** emit an error when file path is not found ([265fb34](https://github.com/felixzapata/gulp-checktextdomain/commit/265fb34))
+* **index.js:** use fs-extra instead of fs ([28a3848](https://github.com/felixzapata/gulp-checktextdomain/commit/28a3848))
+
+
+
 <a name="1.0.1"></a>
 ## [1.0.1](https://github.com/felixzapata/gulp-checktextdomain/compare/1.0.0...v1.0.1) (2016-04-21)
 
