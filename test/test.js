@@ -219,9 +219,23 @@ describe('gulp-checktextdomain', function() {
         keywords: keywords
       };
       gulp.src(fixtures('plurals.php'), { buffer: false })
-        .pipe(checktextdomain())
+        .pipe(checktextdomain(options))
         .on('error', function (err) {
           err.message.should.eql('Streaming not supported');
+          done();
+       });
+   });
+   
+   it('8) Should emit error when there is no text_domain', function (done) {
+      var options = {
+        force: true,
+        create_report_file: true,
+        keywords: keywords
+      };
+      gulp.src(fixtures('plurals.php'))
+        .pipe(checktextdomain(options))
+        .on('error', function (err) {
+          err.message.should.eql('Text domain not provided.');
           done();
        });
    });
