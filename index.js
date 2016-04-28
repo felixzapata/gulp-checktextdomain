@@ -14,6 +14,7 @@ var chalk = require('chalk');
 var R = require('ramda');
 var through = require('through2');
 var table = require('text-table');
+var gutil = require('gulp-util');
 var checktextdomain = require('./lib/checktextdomain.js');
 var PLUGIN_NAME = 'gulp-checktextdomain';
 
@@ -48,19 +49,20 @@ function gulpCheckTextDomain(customOptions, cb) {
     
     /* jshint validthis: true */
 
+    // ignore empty files
     if (file.isNull()) {
       cb(null, file);
       return;
     }
 
     if (file.isStream()) {
-      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported'));
       cb();
       return;
     }
 
     if (options.text_domain === false) {
-      this.emit('error', new PluginError(PLUGIN_NAME, 'Text domain not provided.'));
+      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Text domain not provided.'));
       cb();
       return;
     }
@@ -72,7 +74,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     options.correct_domain = options.correct_domain && (options.text_domain.length === 1);
 
     if (options.keywords === false) {
-      this.emit('error', new PluginError(PLUGIN_NAME, 'No keywords specified.'));
+      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'No keywords specified.'));
       cb();
       return;
     }
