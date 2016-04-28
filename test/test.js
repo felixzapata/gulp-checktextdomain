@@ -240,5 +240,19 @@ describe('gulp-checktextdomain', function() {
        });
    });
    
+   it('9) Should emit error when there is no keywords', function (done) {
+      var options = {
+        force: true,
+        create_report_file: true,
+        text_domain: 'my-domain'
+      };
+      gulp.src(fixtures('plurals.php'))
+        .pipe(checktextdomain(options))
+        .on('error', function (err) {
+          err.message.should.eql('No keywords specified.');
+          done();
+       });
+   });
+   
 
 });
