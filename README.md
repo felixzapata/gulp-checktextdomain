@@ -1,7 +1,8 @@
 # gulp-checktextdomain
 
-
 [![Build Status](https://travis-ci.org/felixzapata/gulp-checktextdomain.png)](https://travis-ci.org/felixzapata/gulp-checktextdomain)
+
+[![Package Quality](http://npm.packagequality.com/badge/gulp-checktextdomain.png)](http://npm.packagequality.com/badge/gulp-checktextdomain.png)
 
 A Gulp plugin to checks gettext function calls for missing or incorrect text domain.
 
