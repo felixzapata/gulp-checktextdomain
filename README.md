@@ -91,6 +91,12 @@ Default value: `true`
 
 Whether to report use of keywords without a domain being passed.
 
+#### report_success
+Type: `Bool`
+Default value: `false`
+
+Whether to report a "no problem" message when a file passes validation.
+
 #### report_variable_domain
 Type: `Bool`
 Default value: `true`
@@ -121,28 +127,32 @@ Set force to true to report text domain errors but not fail the task
 This is a typical set-up for WordPress development. The only thing specific to WordPress here is the keywords list.
 
 ```js
-    var checktextdomain = require('gulp-checktextdomain');
-    var options = {
-      text_domain: 'my-domain', //Specify allowed domain(s)
-			keywords: [ //List keyword specifications
-				'__:1,2d',
-				'_e:1,2d',
-				'_x:1,2c,3d',
-				'esc_html__:1,2d',
-				'esc_html_e:1,2d',
-				'esc_html_x:1,2c,3d',
-				'esc_attr__:1,2d', 
-				'esc_attr_e:1,2d', 
-				'esc_attr_x:1,2c,3d', 
-				'_ex:1,2c,3d',
-				'_n:1,2,4d', 
-				'_nx:1,2,4c,5d',
-				'_n_noop:1,2,3d',
-				'_nx_noop:1,2,3c,4d'
-			]
-    };
-    gulp.src('**/*.php')
-      .pipe(checktextdomain(options));
+var gulp = require('gulp');
+var checktextdomain = require('gulp-checktextdomain');
+
+gulp.task('checktextdomain', function() {
+	return gulp
+	.src('**/*.php')
+	.pipe(checktextdomain({
+		text_domain: 'my-domain', //Specify allowed domain(s)
+		keywords: [ //List keyword specifications
+			'__:1,2d',
+			'_e:1,2d',
+			'_x:1,2c,3d',
+			'esc_html__:1,2d',
+			'esc_html_e:1,2d',
+			'esc_html_x:1,2c,3d',
+			'esc_attr__:1,2d',
+			'esc_attr_e:1,2d',
+			'esc_attr_x:1,2c,3d',
+			'_ex:1,2c,3d',
+			'_n:1,2,4d',
+			'_nx:1,2,4c,5d',
+			'_n_noop:1,2,3d',
+			'_nx_noop:1,2,3c,4d'
+		],
+	}));
+});
 ```
 
 
