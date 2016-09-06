@@ -33,6 +33,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     keywords: false,
     text_domain: false,
     report_missing: true,
+    report_success: false,
     report_variable_domain: true,
     correct_domain: false,
     create_report_file: false,
@@ -287,7 +288,7 @@ function gulpCheckTextDomain(customOptions, cb) {
       console.log(error_num + ' problem' + (error_num === 1 ? '' : 's'), 6);
     } else if (error_num > 0) {
       console.log("\n" + chalk.red.bold('✖ ' + error_num + ' problem' + (error_num === 1 ? '' : 's')));
-    } else {
+    } else if (options.report_success) {
       console.log("\n" + chalk.green.bold('✔ No problems') + "\n");
     }
 
