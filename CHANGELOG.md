@@ -1,3 +1,13 @@
+<a name="1.1.0"></a>
+# [1.1.0](https://github.com/felixzapata/gulp-checktextdomain/compare/1.0.2...v1.1.0) (2016-09-06)
+
+
+### Features
+
+* **report_success:** add a report_success option which is set to false by default so only errors are printed to the console ([ab51d3d](https://github.com/felixzapata/gulp-checktextdomain/commit/ab51d3d))
+
+
+
 <a name="1.0.2"></a>
 ## [1.0.2](https://github.com/felixzapata/gulp-checktextdomain/compare/1.0.1...v1.0.2) (2016-04-28)
 
