@@ -156,6 +156,10 @@ gulp.task('checktextdomain', function() {
 ```
 
 
+## Release History
+
+Read the [full changelog](CHANGELOG.md).
+
 ## License
 
 ISC © [Félix Zapata](http://github.com/felixzapata)
