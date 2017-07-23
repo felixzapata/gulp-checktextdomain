@@ -1,3 +1,14 @@
+<a name="1.1.1"></a>
+## [1.1.1](https://github.com/felixzapata/gulp-checktextdomain/compare/1.0.2...1.1.1) (2017-07-23)
+
+
+### Bug Fixes
+
+* **package.json:** install fs-extra as dependency ([fe07cff](https://github.com/felixzapata/gulp-checktextdomain/commit/fe07cff))
+* **package.json:** install gulp-util as dependency ([441f4b5](https://github.com/felixzapata/gulp-checktextdomain/commit/441f4b5))
+
+
+
 <a name="1.1.0"></a>
 # [1.1.0](https://github.com/felixzapata/gulp-checktextdomain/compare/1.0.2...v1.1.0) (2016-09-06)
 
