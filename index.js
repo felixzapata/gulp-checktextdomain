@@ -15,7 +15,11 @@ var R = require('ramda');
 var through = require('through2');
 var table = require('text-table');
 var gutil = require('gulp-util');
-var checktextdomain = require('./lib/checktextdomain.js');
+
+var Parser = require('php-parser');
+var visitor = require('./lib/visitor');
+var writer = require('./lib/writer');
+
 var PLUGIN_NAME = 'gulp-checktextdomain';
 
 
@@ -40,14 +44,15 @@ function gulpCheckTextDomain(customOptions, cb) {
     force: false
   };
 
+
   var options = customOptions ? R.merge(defaultOptions, customOptions) : defaultOptions;
   var errors = [];
-  var functions = []; //Array of gettext functions 
+  var functions = []; //Array of gettext functions
   var func_domain = {}; //Map of gettext function => ordinal number of domain argument
   var patt = new RegExp('([0-9]+)d', 'i');	//Check for domain identifier in keyword specification
 
   function bufferContents(file, enc, cb) {
-    
+
     /* jshint validthis: true */
 
     // ignore empty files
@@ -113,17 +118,11 @@ function gulpCheckTextDomain(customOptions, cb) {
       functions.push(name);
     });
 
-
     var all_errors = {};
     var error_num = 0;
 
 
-
-
-    var modified_content = '';
-
-    //Read file, if it exists
-
+    // read file, if it exists
     var fileName = path.basename(file.path);
 
     if (!fileExists(file.path)) {
@@ -132,114 +131,68 @@ function gulpCheckTextDomain(customOptions, cb) {
       return;
     }
 
-    //Get tokens
-
-    var tokens = checktextdomain.token_get_all(file.contents.toString());
-
-    //Init gettext_func - the current gettext function being inspected
-    var gettext_func = {
-      name: false, //The name of the gettext function
-      line: false, //The line it occurs on
-      domain: false, //The domain used with it (false if not found)
-      argument: 0, //Ordinal argument number we are currently in
-    };
-
-    var parens_balance = 0; //Used to track parenthesis
-
-    for (var i = 0, len = tokens.length; i < len; i++) {
-
-      var token = tokens[i][0], text = tokens[i][1], line = tokens[i][2];
-
-      var content = ('undefined' !== typeof tokens[i][1] ? tokens[i][1] : tokens[i][0]);
-
-      //Look for T_STRING (function call )
-      if (token === 306 && functions.indexOf(text) > -1) {
-
-        gettext_func = {
-          name: text,
-          line: line,
-          domain: false,
-          argument: 0,
-        };
-
-        parens_balance = 0;
-
-        //Check for T_CONSTANT_ENCAPSED_STRING - and that we are in the text-domain argument
-      } else if (token === 314 && gettext_func.line && func_domain[gettext_func.name] === gettext_func.argument) {
-
-        if (gettext_func.argument > 0) {
-          gettext_func.domain = text.substr(1, text.length - 2);//get rid of quotes from beginning & end
-
-          //Corect content
-          if (options.correct_domain && gettext_func.domain !== options.text_domain[0]) {
-            content = "'" + options.text_domain[0] + "'";
-          }
-        }
-
-        //Check for variable - and that we are in the text-domain argument
-      } else if (token === 308 && gettext_func.line && func_domain[gettext_func.name] === gettext_func.argument) {
-
-        if (gettext_func.argument > 0) {
-          gettext_func.domain = -1; //We don't know what the domain is )its a variable).
-
-          //Corect content
-          if (options.report_variable_domain && options.correct_domain) {
-            content = "'" + options.text_domain[0] + "'";
-          }
-        }
-
-        //Check for comma seperating arguments. Only interested in 'top level' where parens_balance == 1
-      } else if (token === ',' && parens_balance === 1 && gettext_func.line) {
-        gettext_func.argument++;
-
-        //If we are an opening bracket, increment parens_balance
-      } else if ('(' === token && gettext_func.line) {
-
-        //If in gettext function and found opening parenthesis, we are at first argument
-        if (gettext_func.argument === 0) {
-          gettext_func.argument = 1;
-        }
-
-        parens_balance++;
-
-        //If in gettext function and found closing parenthesis,
-      } else if (')' === token && gettext_func.line) {
-        parens_balance--;
-
-        //If parenthesis match we have parsed all the function's arguments. Time to tally.
-        if (gettext_func.line && 0 === parens_balance) {
-
-          var error_type = false;
-
-          if ((options.report_variable_domain && gettext_func.domain === -1)) {
-            error_type = 'variable-domain';
-
-          } else if (options.report_missing && !gettext_func.domain) {
-            error_type = 'missing-domain';
-
-          } else if (gettext_func.domain && gettext_func.domain !== -1 && options.text_domain.indexOf(gettext_func.domain) === -1) {
-            error_type = 'incorrect-domain';
-
-          }
-
-          if (error_type) {
-            errors.push(gettext_func);
-          }
-
-          //Reset gettext_func
-          gettext_func = {
-            name: false,
-            line: false,
-            domain: false,
-            argument: 0,
-          };
-        }
-
+    var reader = new Parser({
+      parser: {
+        // does not extract docs
+        extractDoc: false,
+        // do not fail if PHP syntax is broken
+        suppressErrors: true
+      },
+      ast: {
+        // got line and col on every node
+        withPositions: true
+      },
+      lexer: {
+        // accept <? ...
+        short_tags: true,
+        // accept <%= (old php4 syntax)
+        asp_tags: true
       }
+    });
 
-      modified_content += content;
-
-    }
+    // get every gettext call
+    var corrections = [];
+    var ast = reader.parseCode(file.contents.toString(), file.path);
+    var calls = visitor(ast, functions);
+    calls.forEach(function(call) {
+      var domainOffset = func_domain[call.what.name] - 1;
+      if (call.arguments.length > domainOffset) {
+        var arg = call.arguments[domainOffset];
+        // bad domain type
+        var domName = -1;
+        // check argument type
+        if (arg.kind === 'string') {
+          // check the domain
+          domName = arg.value;
+        } else if (arg.kind === 'constref') {
+          // check a constant name
+          domName = arg.name.name;
+        }
+        // bad domain contents
+        if (options.text_domain.indexOf(domName) === -1) {
+          errors.push({
+            name: call.what.name,
+            line: call.loc.start.line,
+            domain: domName,
+            argument: domainOffset
+          });
+          if (options.correct_domain) {
+            // try to correct it
+            corrections.push([
+              arg, '\'' + options.text_domain[0] + '\''
+            ]);
+          }
+        }
+      } else if (options.report_missing) {
+        // argument not found
+        errors.push({
+          name: call.what.name,
+          line: call.loc.start.line,
+          domain: false,
+          argument: 0
+        });
+      }
+    });
 
     //Output errors
     if (errors.length > 0) {
@@ -247,7 +200,7 @@ function gulpCheckTextDomain(customOptions, cb) {
       console.log('\n' + chalk.bold.underline(fileName));
 
       var rows = [], error_line, func, message;
-      for (i = 0, len = errors.length; i < len; i++) {
+      for (var i = 0, len = errors.length; i < len; i++) {
 
         error_line = chalk.yellow('[L' + errors[i].line + ']');
         func = chalk.cyan(errors[i].name);
@@ -268,8 +221,8 @@ function gulpCheckTextDomain(customOptions, cb) {
 
       console.log(table(rows));
 
-      if (options.correct_domain) {
-        fs.writeFileSync(file.path, modified_content);
+      if (corrections.length > 0) {
+        writer(file.path, file.contents.toString(), corrections);
         console.log(chalk.bold(fileName + ' corrected.'));
       }
     }

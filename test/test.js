@@ -67,8 +67,8 @@ describe('gulp-checktextdomain', function() {
         actual[path.join(__dirname, 'temp/incorrect-domain-autocorrect.php')].length.should.equal(14);
 
         //Test corrected file
-        corrected = fs.readFileSync('test/temp/incorrect-domain-autocorrect.php').toString();
-        expected = fs.readFileSync('test/expected/incorrect-domain-autocorrect.php').toString();
+        corrected = fs.readFileSync(__dirname + '/temp/incorrect-domain-autocorrect.php').toString();
+        expected = fs.readFileSync(__dirname + '/expected/incorrect-domain-autocorrect.php').toString();
         corrected.should.equal(expected);
 
         //Clean up: Delete report file
@@ -210,7 +210,7 @@ describe('gulp-checktextdomain', function() {
       .pipe(sassert.end(done));
 
   });
-  
+
   it('7) Should emit error on streamed file', function (done) {
       var options = {
         force: true,
@@ -225,7 +225,7 @@ describe('gulp-checktextdomain', function() {
           done();
        });
    });
-   
+
    it('8) Should emit error when there is no text_domain', function (done) {
       var options = {
         force: true,
@@ -239,7 +239,7 @@ describe('gulp-checktextdomain', function() {
           done();
        });
    });
-   
+
    it('9) Should emit error when there is no keywords', function (done) {
       var options = {
         force: true,
@@ -253,6 +253,6 @@ describe('gulp-checktextdomain', function() {
           done();
        });
    });
-   
+
 
 });
