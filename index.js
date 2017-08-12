@@ -245,8 +245,6 @@ function gulpCheckTextDomain(customOptions, cb) {
       console.log("\n" + chalk.green.bold('✔ No problems') + "\n");
     }
 
-
-
     this.push(file);
 
     cb();
