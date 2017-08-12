@@ -254,5 +254,30 @@ describe('gulp-checktextdomain', function() {
        });
    });
 
+  it('10) Should review that the domain (set as a constant) is ok', function(done) {
+    var actual;
+    var corrected;
+    var expected;
+    var options = {
+      force: true,
+      text_domain: 'MY_CUSTOM_CONSTANT',
+      create_report_file: true,
+      keywords: keywords
+    };
+
+    gulp.src(fixtures('correct-domain-constant.php'))
+      .pipe(checktextdomain(options))
+      .pipe(sassert.first(function(d) {
+        //File is correct, should report no errors
+        actual = JSON.parse(fs.readFileSync('.correct-domain-constant.json'));
+        actual[path.join(__dirname, 'temp/correct-domain-constant.php')].length.should.equal(0);
+
+        //Clean up: Delete report file
+        fs.remove('.correct-domain-constant.json');
+      }))
+      .pipe(sassert.end(done));
+
+  });
+
 
 });
