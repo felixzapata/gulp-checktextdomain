@@ -1,3 +1,13 @@
+<a name="2.1.0"></a>
+# [2.1.0](https://github.com/felixzapata/gulp-checktextdomain/compare/2.0.0...2.1.0) (2017-11-11)
+
+
+### Features
+
+* **index.js:** show full file path ([4101713](https://github.com/felixzapata/gulp-checktextdomain/commit/4101713))
+
+
+
 <a name="2.0.0"></a>
 # [2.0.0](https://github.com/felixzapata/gulp-checktextdomain/compare/1.1.1...2.0.0) (2017-08-12)
 
