@@ -123,7 +123,7 @@ function gulpCheckTextDomain(customOptions, cb) {
 
 
     // read file, if it exists
-    var fileName = path.basename(file.path);
+    var dirname = path.dirname(file.path);
 
     if (!fileExists(file.path)) {
       this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Source file "' + file.path + '" not found.'));
@@ -197,7 +197,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     //Output errors
     if (errors.length > 0) {
 
-      console.log('\n' + chalk.bold.underline(fileName));
+      console.log('\n' + chalk.bold.underline(dirname));
 
       var rows = [], error_line, func, message;
       for (var i = 0, len = errors.length; i < len; i++) {
@@ -223,7 +223,7 @@ function gulpCheckTextDomain(customOptions, cb) {
 
       if (corrections.length > 0) {
         writer(file.path, file.contents.toString(), corrections);
-        console.log(chalk.bold(fileName + ' corrected.'));
+        console.log(chalk.bold(dirname + ' corrected.'));
       }
     }
 
