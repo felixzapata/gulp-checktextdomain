@@ -123,6 +123,7 @@ function gulpCheckTextDomain(customOptions, cb) {
 
 
     // read file, if it exists
+    var filename = path.basename(file.path);
     var dirname = path.dirname(file.path);
 
     if (!fileExists(file.path)) {
@@ -197,7 +198,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     //Output errors
     if (errors.length > 0) {
 
-      console.log('\n' + chalk.bold.underline(dirname));
+      console.log('\n' + chalk.bold.underline(dirname + path.sep + filename));
 
       var rows = [], error_line, func, message;
       for (var i = 0, len = errors.length; i < len; i++) {
@@ -223,7 +224,7 @@ function gulpCheckTextDomain(customOptions, cb) {
 
       if (corrections.length > 0) {
         writer(file.path, file.contents.toString(), corrections);
-        console.log(chalk.bold(dirname + ' corrected.'));
+        console.log(chalk.bold(dirname + path.sep + filename + ' corrected.'));
       }
     }
 
