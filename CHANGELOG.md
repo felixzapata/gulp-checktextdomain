@@ -1,3 +1,13 @@
+<a name="2.2.0"></a>
+# [2.2.0](https://github.com/felixzapata/gulp-checktextdomain/compare/2.1.1...2.2.0) (2018-07-06)
+
+
+### Features
+
+* **gulp-util:** remove gulp-util due to gulp v4  ([0c618c4](https://github.com/felixzapata/gulp-checktextdomain/commit/0c618c4))
+
+
+
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/felixzapata/gulp-checktextdomain/compare/2.1.0...2.1.1) (2017-11-17)
 
