@@ -1,14 +1,14 @@
 'use strict';
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
-var path = require('path');
+var bump = require('gulp-bump');
 var log = require('fancy-log');
 
 
 function doBump(type) {
   return function () {
     return gulp.src('./package.json')
-      .pipe($.bump(type).on('error', log.error))
+      .pipe(bump(type).on('error', log.error))
       .pipe(gulp.dest('./'));
   };
 }

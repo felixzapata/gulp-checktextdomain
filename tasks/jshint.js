@@ -2,11 +2,6 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var stylish = require('jshint-stylish');
-var options = {
-    lookup: true
-  };
-
-
 gulp.task('jshint', function() {
     var options = {
         lookup: true

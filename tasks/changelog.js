@@ -1,6 +1,5 @@
 'use strict';
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
 var conventionalChangelog = require('conventional-changelog');
 var fs = require('fs');
 var file = 'CHANGELOG.md';

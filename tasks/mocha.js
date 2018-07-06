@@ -1,8 +1,7 @@
 'use strict';
 var gulp = require('gulp');
-var $ = require('gulp-load-plugins')();
+var mocha = require('gulp-mocha');
 
 gulp.task('test', ['jshint'], function () {
-    return gulp.src('test.js', {cwd: './test', read: false})
-        .pipe($.mocha());
+    return gulp.src('test.js', { cwd: './test', read: false }).pipe(mocha());
 });
