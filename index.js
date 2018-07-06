@@ -14,8 +14,7 @@ var chalk = require('chalk');
 var R = require('ramda');
 var through = require('through2');
 var table = require('text-table');
-var gutil = require('gulp-util');
-
+var PluginError = require('plugin-error');
 var Parser = require('php-parser');
 var visitor = require('./lib/visitor');
 var writer = require('./lib/writer');
@@ -62,13 +61,13 @@ function gulpCheckTextDomain(customOptions, cb) {
     }
 
     if (file.isStream()) {
-      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Streaming not supported'));
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Streaming not supported'));
       cb();
       return;
     }
 
     if (options.text_domain === false) {
-      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Text domain not provided.'));
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Text domain not provided.'));
       cb();
       return;
     }
@@ -80,7 +79,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     options.correct_domain = options.correct_domain && (options.text_domain.length === 1);
 
     if (options.keywords === false) {
-      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'No keywords specified.'));
+      this.emit('error', new PluginError(PLUGIN_NAME, 'No keywords specified.'));
       cb();
       return;
     }
@@ -127,7 +126,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     var dirname = path.dirname(file.path);
 
     if (!fileExists(file.path)) {
-      this.emit('error', new gutil.PluginError(PLUGIN_NAME, 'Source file "' + file.path + '" not found.'));
+      this.emit('error', new PluginError(PLUGIN_NAME, 'Source file "' + file.path + '" not found.'));
       cb();
       return;
     }
