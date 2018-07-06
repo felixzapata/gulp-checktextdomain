@@ -2,12 +2,14 @@
 var gulp = require('gulp');
 var $ = require('gulp-load-plugins')();
 var runSequence = require('run-sequence');
+var log = require('fancy-log');
+var colors = require('ansi-colors');
 
 function done(error) {
   if (error) {
-    $.util.log($.util.colors.red(error.message));
+    log(colors.red(error.message));
   } else {
-    $.util.log($.util.colors.green('Release finished successfully'));
+    log(colors.green('Release finished successfully'));
   }
 
 }

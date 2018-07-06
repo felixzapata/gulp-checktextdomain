@@ -4,6 +4,8 @@ var $ = require('gulp-load-plugins')();
 var path = require('path');
 var runSequence = require('run-sequence');
 var fs = require('fs');
+var log = require('fancy-log');
+var colors = require('ansi-colors');
 
 function getPackageJSONVersion() {
   return JSON.parse(fs.readFileSync('./package.json', 'utf8')).version;
@@ -29,7 +31,7 @@ gulp.task('create-new-tag', function () {
   var version = getPackageJSONVersion();
   return $.git.tag(version, 'New version ' + version, function (error) {
     if (error) {
-      $.util.log($.util.colors.red(error));
+      log(colors.red(error));
     }
   });
 
@@ -40,7 +42,7 @@ gulp.task('create-new-tag', function () {
 gulp.task('git', function (callback) {
   runSequence('commit-changelog', 'commit-changes', 'create-new-tag', function (error) {
     if (error) {
-      $.util.log($.util.colors.red(error.message));
+      log(colors.red(error.message));
     } else {
       callback();
     }
