@@ -11,6 +11,9 @@
 <a name="2.1.1"></a>
 ## [2.1.1](https://github.com/felixzapata/gulp-checktextdomain/compare/2.1.0...2.1.1) (2017-11-17)
 
+### Bug Fixes
+
+* **file name:** show filename with full file path  ([5eb267c](https://github.com/felixzapata/gulp-checktextdomain/commit/5eb267c))
 
 
 <a name="2.1.0"></a>
