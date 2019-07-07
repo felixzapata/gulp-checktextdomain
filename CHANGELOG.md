@@ -1,3 +1,18 @@
+<a name="2.2.1"></a>
+## [2.2.1](https://github.com/felixzapata/gulp-checktextdomain/compare/2.2.0...2.2.1) (2019-07-07)
+
+
+### Bug Fixes
+
+* log output ([5e13048](https://github.com/felixzapata/gulp-checktextdomain/commit/5e13048))
+
+
+### Features
+
+* **gulp:** update dev tasks to gulp 4 ([622e683](https://github.com/felixzapata/gulp-checktextdomain/commit/622e683))
+
+
+
 <a name="2.2.0"></a>
 # [2.2.0](https://github.com/felixzapata/gulp-checktextdomain/compare/2.1.1...2.2.0) (2018-07-06)
 
