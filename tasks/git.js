@@ -1,6 +1,5 @@
 'use strict';
 var gulp = require('gulp');
-var runSequence = require('run-sequence');
 var fs = require('fs');
 var log = require('fancy-log');
 var git = require('gulp-git');
@@ -37,13 +36,4 @@ gulp.task('create-new-tag', function () {
 
 });
 
-
-gulp.task('git', function (callback) {
-  runSequence('commit-changelog', 'commit-changes', 'create-new-tag', function (error) {
-    if (error) {
-      log(colors.red(error.message));
-    } else {
-      callback();
-    }
-  });
-});
+gulp.task('git', gulp.series('commit-changelog', 'commit-changes', 'create-new-tag'));

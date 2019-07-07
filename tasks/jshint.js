@@ -9,7 +9,7 @@ gulp.task('jshint', function() {
     return gulp.src([
             'gulpfile.js',
             'index.js',
-            '<%= nodeunit.tests %>'
+            'test/test.js'
         ])
         .pipe($.jshint(options))
         .pipe($.jshint.reporter(stylish));
