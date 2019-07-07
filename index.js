@@ -238,7 +238,7 @@ function gulpCheckTextDomain(customOptions, cb) {
     }
 
     if (error_num > 0 && !options.force) {
-      console.log(error_num + ' problem' + (error_num === 1 ? '' : 's'), 6);
+      console.log(error_num + ' problem' + (error_num === 1 ? '' : 's'));
     } else if (error_num > 0) {
       console.log("\n" + chalk.red.bold('✖ ' + error_num + ' problem' + (error_num === 1 ? '' : 's')));
     } else if (options.report_success) {
