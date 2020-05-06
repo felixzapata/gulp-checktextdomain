@@ -1,7 +1,11 @@
 <a name="2.2.2"></a>
 ## [2.2.2](https://github.com/felixzapata/gulp-checktextdomain/compare/2.2.1...2.2.2) (2020-05-06)
 
+### Bug Fixes
 
+* bump js-yaml from 3.9.1 to 3.13.1 ([14](https://github.com/felixzapata/gulp-checktextdomain/pull/14))
+* bump handlebars from 4.0.10 to 4.7.6 ([13](https://github.com/felixzapata/gulp-checktextdomain/pull/13))
+* bump lodash.merge from 4.6.0 to 4.6.2 ([12](https://github.com/felixzapata/gulp-checktextdomain/pull/12))
 
 <a name="2.2.1"></a>
 ## [2.2.1](https://github.com/felixzapata/gulp-checktextdomain/compare/2.2.0...2.2.1) (2019-07-07)
