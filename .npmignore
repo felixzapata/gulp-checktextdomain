@@ -2,6 +2,7 @@
 .gitignore
 .jshintignore
 .jshintrc
+package-lock.json
 tasks
 test
 gulpfile.js
