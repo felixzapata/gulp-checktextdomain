@@ -1,3 +1,7 @@
+# [2.3.0](https://github.com/felixzapata/gulp-checktextdomain/compare/2.2.2...2.3.0) (2022-11-03)
+
+
+
 <a name="2.2.2"></a>
 ## [2.2.2](https://github.com/felixzapata/gulp-checktextdomain/compare/2.2.1...2.2.2) (2020-05-06)
 
